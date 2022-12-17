@@ -1,0 +1,75 @@
+/* styling for the slider from swiper library */
+
+.swiper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+  }
+
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+
+
+
+
+/* Below Styles Are Temporary Given and have to be Changed Later 😜 */
+
+*{
+    text-decoration: none;
+    color:black
+}
+.movies-container,.workshop-container{
+  margin-top:30px;
+  display: flex;
+  gap:8px;
+}
+.movies img{
+    width:185px;
+    height: 238px;
+   
+}
+
+.cast{
+    border:2px solid red;
+    display: flex;
+}
+
+.crew{
+    border:2px solid green;
+    margin-top:6px;
+    display: flex;
+}
+
+.reviews{
+    border:2px solid blue;
+    margin-top:16px;
+}
+
+.review-container{
+    border:5px solid cyan;
+    margin-top:16px;
+}

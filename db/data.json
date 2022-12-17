@@ -1,0 +1,52 @@
+{
+    "workshops":[
+        {
+        "id":1,
+        "title":"SPEAK UP! Communication Workshop",
+        "watch":"Watch on Zoom",
+        "type":"Online Streaming Events",
+        "price":"Rs.2999",
+        "img":"../images/speak.avif",
+        "language":"English",
+        "kids Allowed":"true",
+        "category":"Masterclass",
+        "date":"weekend"
+    
+    
+    
+    },
+    {
+        "id":2,
+        "title":"Smartphone Photography",
+        "watch":"Watch on Zoom",
+        "type":"Online Streaming Events",
+        "price":"Rs.2000",
+        "img":"https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:ote-RnJpLCAxNiBEZWMgb253YXJkcw%3D%3D,ots-29,otc-FFFFFF,oy-612,ox-24:q-80/et00307978-fnqkudcztt-portrait.jpg",
+        "language":"English",
+        "kids Allowed":"true",
+        "category":"Photography",
+        "date":"tommorow"
+    
+    
+    
+    }
+    ],
+    "images": [
+        {
+            "id":1,
+             "img":"../images/event.avif"
+        },
+        {
+            "id":2,
+            "img":"../images/xmas.avif"
+        },
+        {
+            "id":3,
+            "img":"../images/kids_zone.avif"
+        },
+        {
+            "id":4,
+            "img":"../images/stayfit.avif"
+        }
+    ]
+}
