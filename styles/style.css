@@ -42,12 +42,12 @@
     text-decoration: none;
     color:black
 }
-.movies-container,.workshop-container{
+.movies-container,.workshop-container,.upcomingMovies-container,.nowPlayingMovies-container,.popularMovies-container,.topRatedMovies-container,.latestMovies-container,.moviesYouMayLike-container{
   margin-top:30px;
   display: flex;
   gap:8px;
 }
-.movies img{
+.movies img,.upcoming-movies img,.premeire-movies img,.popular-movies img,.topRated-movies img,.latest-movies img,.moviesYouMayLike img{
     width:185px;
     height: 238px;
    

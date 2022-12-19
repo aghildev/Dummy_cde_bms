@@ -1,20 +1,21 @@
-
-//Retrieving the id from url and storing in a variable called id
 const id = new URLSearchParams(window.location.search).get("id");
-//-----------------------------------------------------------------------------
-//Taking Reference of div  Where We are going to put all data
-const movieContainerEl = document.querySelector(".expandedMovieContainer")
+console.log(id)
+const upComingmovieContainerEl = document.querySelector(".expandedUpComingMovieContainer")
 const moviesYouMayLikeContainerEl = document.querySelector(".moviesYouMayLike-container")
-//--------------------------------------------------------------------------------
-// variable declaration For the reuseablility while hitting ApiEndPoints
-const auth = "57b428c0e112b579eb26e2f43ff08b0f"
-const Api_key = "api_key=57b428c0e112b579eb26e2f43ff08b0f"
-const Base_Url = "https://api.themoviedb.org/3/"
-const Api_url = Base_Url + "/trending/movie/week?" + Api_key
-const img_url = "https://image.tmdb.org/t/p/w500"
-let moviesYouMayLikeUrl = Base_Url + "discover/movie?" + Api_key+"&sort_by=popularity.desc&page=2&primary_release_year=2022&with_original_language=hi"
-//-------------------------------------------------------------------------------
-//Function To Render All The Details Of The Specific Movie We Selected in the Home Page
+
+let auth = "57b428c0e112b579eb26e2f43ff08b0f"
+let Api_key = "api_key=57b428c0e112b579eb26e2f43ff08b0f"
+let Base_Url = "https://api.themoviedb.org/3/"
+let Api_url = Base_Url + "/trending/movie/week?" + Api_key
+let img_url = "https://image.tmdb.org/t/p/w500"
+let upComingMoviesUrl =  Base_Url + "movie/upcoming?" + Api_key
+let moviesYouMayLikeUrl = Base_Url + "discover/movie?" + Api_key+"&sort_by=popularity.desc&page=2&&primary_release_year=2022&with_origin_country=IN"
+
+
+
+
+
+
 const renderDetails = async () => {
     const res = await fetch(`${Base_Url}movie/${id}?${Api_key}&language=en-US`); // Fetching Specific Movie Details using id
     const movieData = await res.json()
@@ -26,8 +27,8 @@ const renderDetails = async () => {
     })
     const template = `
      <h1>${original_title}</h1>
-     <img src="${img_url}/${backdrop_path}" alt="" style= "width:90%" /> --cover photo
-     <img src = "${img_url}/${poster_path}" alt="" style= "width:30%" /> --profile pic
+     <img src="${"https://image.tmdb.org/t/p/w500"}/${backdrop_path}" alt="" style= "width:90%" /> --cover photo
+     <img src = "${"https://image.tmdb.org/t/p/w500"}/${poster_path}" alt="" style= "width:30%" /> --profile pic
      <h1>vote-count:${vote_count}</h1>
      <h1>Rating :${vote_average}</h1>
      <h1>Runtime of movie : ${runtime} mins</h1>
@@ -36,12 +37,16 @@ const renderDetails = async () => {
      <h2>genres : ${gens}</h2>
       `
     //I have Written Which is Cover Photo and Which is Profile Pic Inside the Template String And Also Given Small Inline Style Dont forget to delete it While Styling 
-    movieContainerEl.innerHTML = template
+    upComingmovieContainerEl.innerHTML = template
     renderCast()  //Calling The Function Render The Cast
     renderCrew()  //Calling The Function Render The Crew
     renderReviews() //Calling The Function Render The Reviews
     renderMoviesYouLike()
 }
+
+
+
+
 //------------------------------------------------------------------------------------------
 //Function That Renders the Cast
 const renderCast = async () => {
@@ -56,10 +61,10 @@ const renderCast = async () => {
         castElCon.innerHTML += `
         <div class="cast-container">
           <small>${c.name}</small>
-          <img src="${img_url}/${c.profile_path}" alt="" style="height:150px;border-radius:50%"/>
+          <img src="${"https://image.tmdb.org/t/p/w500"}/${c.profile_path}" alt="" style="height:150px;border-radius:50%"/>
         </div>
           `
-        movieContainerEl.appendChild(castElCon)
+          upComingmovieContainerEl.appendChild(castElCon)
     })
 }
 //----------------------------------------------------------------------------------------------
@@ -76,11 +81,11 @@ const renderCrew = async () => {
         crewElCon.innerHTML += `
         <div class="crew-container">
           <small>${c.name}</small>
-          <img src="${img_url}/${c.profile_path ? c.profile_path : "/5QlzL72Du5zVs1E27pQ0OlFLImI.jpg"}" alt="" style="height:150px;border-radius:50%"/>
+          <img src="${"https://image.tmdb.org/t/p/w500"}/${c.profile_path ? c.profile_path : "/5QlzL72Du5zVs1E27pQ0OlFLImI.jpg"}" alt="" style="height:150px;border-radius:50%"/>
         </div>
          `
         //I have used Ternary Operator to get image because Some times We are getting Null through Api😕
-        movieContainerEl.appendChild(crewElCon)
+        upComingmovieContainerEl.appendChild(crewElCon)
     })
 }
 //Function That Renders the Reviews
@@ -105,9 +110,10 @@ const renderReviews = async () => {
            <h2>Rating:${rating}/10</h2>
           </div>
           `
-        movieContainerEl.appendChild(reviewCon)
+          upComingmovieContainerEl.appendChild(reviewCon)
     })
 }
+
 
 
 const renderMoviesYouLike = async function() {
@@ -122,7 +128,7 @@ const renderMoviesYouLike = async function() {
   const mayLikeCon = document.createElement("div")
   mayLikeCon.classList.add("moviesYouMayLike")
   mayLikeCon.innerHTML = `
-           <a href="./movieExpanded.html?id=${id}">   
+           <a href="./upcomingMoviesExpanded.html?id=${id}">   
                <img src="${img_url + poster_path}" alt="" />
            </a>
            <p>${title}</p>
@@ -137,8 +143,11 @@ moviesYouMayLikeContainerEl.appendChild(mayLikeCon)
 
 
 
-window.addEventListener("DOMContentLoaded", () => renderDetails())  //This Function help to load the Content When The Dom loads 
 
 
 
 
+
+
+
+window.addEventListener("DOMContentLoaded", () => renderDetails())
