@@ -1,6 +1,6 @@
 const id = new URLSearchParams(window.location.search).get("id");
 console.log(id)
-const latestMoviesContainerEl = document.querySelector(".latestMoviesExpanded-container")
+const indianMoviesContainerEl = document.querySelector(".expandedIndianMovieContainer")
 const moviesYouMayLikeContainerEl = document.querySelector(".moviesYouMayLike-container")
 
 let auth = "57b428c0e112b579eb26e2f43ff08b0f"
@@ -9,13 +9,15 @@ let Base_Url = "https://api.themoviedb.org/3/"
 let Api_url = Base_Url + "/trending/movie/week?" + Api_key
 let img_url = "https://image.tmdb.org/t/p/w500"
 let upComingMoviesUrl =  Base_Url + "movie/upcoming?" + Api_key
-let recommendedMoviesUrl = Base_Url + "movie/popular?"+ Api_key+"&language=en-US&page=4"
+let moviesYouMayLikeUrl = Base_Url + "discover/movie?" + Api_key+"&sort_by=popularity.desc&page=2&&primary_release_year=2022&with_origin_country=IN"
+
+
 
 
 
 
 const renderDetails = async () => {
-    const res = await fetch(`${Base_Url}movie/${id}?${Api_key}`); // Fetching Specific Movie Details using id
+    const res = await fetch(`${Base_Url}movie/${id}?${Api_key}&language=en-US`); // Fetching Specific Movie Details using id
     const movieData = await res.json()
     const { original_title, backdrop_path, vote_count, vote_average, runtime, release_date, overview, poster_path, genres,spoken_languages,production_companies,adult } = movieData;//Destructuring Optional He😇  
     //We are getting Genres as an array so have to Iterate Over That..We have to delete The Coma Thats coming at the End of very last genre...Will  Rectify it later😒
@@ -46,7 +48,7 @@ const renderDetails = async () => {
      <h2>Certificate:${adult?"U/A":"U"}</h2>
       `
     //I have Written Which is Cover Photo and Which is Profile Pic Inside the Template String And Also Given Small Inline Style Dont forget to delete it While Styling 
-    latestMoviesContainerEl.innerHTML = template
+    indianMoviesContainerEl.innerHTML = template
     renderCast()  //Calling The Function Render The Cast
     renderCrew()  //Calling The Function Render The Crew
     renderReviews() //Calling The Function Render The Reviews
@@ -73,7 +75,7 @@ const renderCast = async () => {
           <img src="${"https://image.tmdb.org/t/p/w500"}/${c.profile_path}" alt="" style="height:150px;border-radius:50%"/>
         </div>
           `
-          latestMoviesContainerEl.appendChild(castElCon)
+          indianMoviesContainerEl.appendChild(castElCon)
     })
 }
 //----------------------------------------------------------------------------------------------
@@ -94,7 +96,7 @@ const renderCrew = async () => {
         </div>
          `
         //I have used Ternary Operator to get image because Some times We are getting Null through Api😕
-        latestMoviesContainerEl.appendChild(crewElCon)
+        indianMoviesContainerEl.appendChild(crewElCon)
     })
 }
 //Function That Renders the Reviews
@@ -119,36 +121,36 @@ const renderReviews = async () => {
            <h2>Rating:${rating}/10</h2>
           </div>
           `
-          latestMoviesContainerEl.appendChild(reviewCon)
+          indianMoviesContainerEl.appendChild(reviewCon)
     })
 }
 
+
+
 const renderMoviesYouLike = async function() {
-    const res = await fetch(recommendedMoviesUrl); // End Point That Fetch the Crew
-    const movies = await res.json();
-   const mayLikeMovies = movies.results.slice(1,10);
-  
-  
-   mayLikeMovies.forEach((movie) => {
-       
-    const {id, title,release_date,popularity,vote_average,original_language,poster_path } = movie;
-    const mayLikeCon = document.createElement("div")
-    mayLikeCon.classList.add("moviesYouMayLike")
-    mayLikeCon.innerHTML = `
-             <a href="./latestMoviesExpanded.html?id=${id}">   
-                 <img src="${img_url + poster_path}" alt="" />
-             </a>
-             <p>${title}</p>
-             <p>Likes-${popularity}</p>
-             <p>rating-${vote_average}</p>
-           
-  `
-  moviesYouMayLikeContainerEl.appendChild(mayLikeCon)
+  const res = await fetch(moviesYouMayLikeUrl); // End Point That Fetch the Crew
+  const movies = await res.json();
+ const mayLikeMovies = movies.results.slice(1,10);
+
+
+ mayLikeMovies.forEach((movie) => {
+     
+  const {id, title,release_date,popularity,vote_average,original_language,poster_path } = movie;
+  const mayLikeCon = document.createElement("div")
+  mayLikeCon.classList.add("moviesYouMayLike")
+  mayLikeCon.innerHTML = `
+           <a href="./indianMoviesExpanded.html?id=${id}">   
+               <img src="${img_url + poster_path}" alt="" />
+           </a>
+           <p>${title}</p>
+           <p>Likes-${popularity}</p>
+           <p>rating-${vote_average}</p>
+         
+`
+moviesYouMayLikeContainerEl.appendChild(mayLikeCon)
 })
 
 }
-
-
 
 
 

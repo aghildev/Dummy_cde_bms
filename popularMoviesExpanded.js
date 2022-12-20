@@ -9,16 +9,24 @@ let Base_Url = "https://api.themoviedb.org/3/"
 let Api_url = Base_Url + "/trending/movie/week?" + Api_key
 let img_url = "https://image.tmdb.org/t/p/w500"
 let upComingMoviesUrl =  Base_Url + "movie/upcoming?" + Api_key
-let recommendedMoviesUrl = Base_Url + "movie/popular?"+ Api_key+"&language=en-US&page=4"
+let recommendedMoviesUrl = Base_Url + "discover/movie?" + Api_key+"&sort_by=popularity.desc&page=1&primary_release_year=2022&with_original_language=ml|bn|ta"
 
 
 
 
 const renderDetails = async () => {
-    const res = await fetch(`${Base_Url}movie/${id}?${Api_key}&language=en-US`); // Fetching Specific Movie Details using id
+    const res = await fetch(`${Base_Url}movie/${id}?${Api_key}`); // Fetching Specific Movie Details using id
     const movieData = await res.json()
-    const { original_title, backdrop_path, vote_count, vote_average, runtime, release_date, overview, poster_path, genres } = movieData;//Destructuring Optional He😇  
+    const { original_title, backdrop_path, vote_count, vote_average, runtime, release_date, overview, poster_path, genres,spoken_languages,production_companies,adult } = movieData;//Destructuring Optional He😇  
     //We are getting Genres as an array so have to Iterate Over That..We have to delete The Coma Thats coming at the End of very last genre...Will  Rectify it later😒
+    let productions= ""
+    production_companies.forEach((p)=>{
+      productions+=p.name+" "+","
+    })
+    let languages = ""
+    spoken_languages.forEach((l)=>{
+      languages+=l.english_name+" "+","
+    })
     let gens = ""
     genres.forEach((g) => {
         gens += g.name + " " + ","
@@ -32,7 +40,10 @@ const renderDetails = async () => {
      <h1>Runtime of movie : ${runtime} mins</h1>
      <h1>Release Date : ${release_date}</h1>
      <h2>About Movie : ${overview}</h2>
-     <h2>genres : ${gens}</h2>
+     <h2>genres : ${gens.slice(0,-1)}</h2>
+     <h2>languages:${languages.slice(0,-1)}</h2>
+     <h2>Production Companies:${productions.slice(0,-1)}</h2>
+     <h2>Certificate:${adult?"U/A":"U"}</h2>
       `
     //I have Written Which is Cover Photo and Which is Profile Pic Inside the Template String And Also Given Small Inline Style Dont forget to delete it While Styling 
     popularMoviesContainerEl.innerHTML = template
@@ -113,7 +124,7 @@ const renderReviews = async () => {
 }
 
 const renderMoviesYouLike = async function() {
-    const res = await fetch(recommendedMoviesUrl); // End Point That Fetch the Crew
+    const res = await fetch(recommendedMoviesUrl); 
     const movies = await res.json();
    const mayLikeMovies = movies.results.slice(1,10);
   
